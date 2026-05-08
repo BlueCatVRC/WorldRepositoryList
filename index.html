@@ -1,0 +1,158 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>World Repository List View</title>
+
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+
+        <style>
+            body {
+                margin: 0;
+                font-family: "Roboto", sans-serif;
+                line-height: 1.5;
+                background: #f3f3f3;
+                color: #222;
+            }
+
+            #repository-list-container {
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+                margin: 0 0 0.5rem;
+                color: #111;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 0.3rem;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            li {
+                margin: 0.3rem 0;
+            }
+
+            a {
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            a {
+                color: #0069d9;
+                transition: color 0.2s;
+            }
+
+            a:hover {
+                color: #004aba;
+            }
+
+            .world-deleted {
+                color: #c04e4e;
+                cursor: not-allowed;
+            }
+
+            .floor-container {
+                background: #fff;
+                border-radius: 0.5rem;
+                padding: 0.8rem 1rem;
+                margin-bottom: 1.5rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="repository-list-container"></div>
+
+        <script>
+            fetch("https://gist.githubusercontent.com/BlueCatVRC/bca68d917105d453b4b352708098f6ff/raw")
+                .then(async (resp) => {
+                    const rawList = await resp.text();
+
+                    const splitList = rawList.split("\n").filter((a) => !a.match(/^\[DT:\d+\]$/));
+
+                    const objectList = splitList.map((l) => {
+                        const splitListLine = l.split(":");
+
+                        return {
+                            name: splitListLine[0].trim(),
+                            id: splitListLine[1].trim(),
+                            tags:
+                                splitListLine[2]
+                                    ?.trim()
+                                    .split("__")
+                                    .filter((a) => Boolean(a)) || [],
+                        };
+                    });
+
+                    const perFloorList = objectList
+                        .reduce((acc, obj, i) => {
+                            const chunkIndex = Math.floor(i / 16);
+
+                            if (!acc[chunkIndex]) acc[chunkIndex] = [];
+
+                            acc[chunkIndex].push(obj);
+
+                            return acc;
+                        }, [])
+                        .map((sublist) => sublist.reverse());
+
+                    for (let i = perFloorList.length - 1; i >= 0; i--) {
+                        const worldsOnFloor = perFloorList[i];
+
+                        const floorContainer = document.createElement("div");
+                        floorContainer.classList.add("floor-container");
+
+                        const floorTitle = document.createElement("h2");
+                        floorTitle.textContent = "Floor " + i;
+                        floorContainer.appendChild(floorTitle);
+
+                        const floorWorldList = document.createElement("ul");
+                        worldsOnFloor.forEach((world) => {
+                            const worldIsDeleted = world.tags.includes("WORLD_DELETED");
+                            const worldElement = document.createElement(worldIsDeleted ? "div" : "a");
+                            worldElement.textContent = world.name;
+
+                            if (worldIsDeleted) worldElement.classList.add("world-deleted");
+                            else {
+                                worldElement.href = `https://vrchat.com/home/world/${world.id}/info`;
+                                worldElement.target = "_blank";
+                            }
+
+                            const li = document.createElement("li");
+                            li.appendChild(worldElement);
+                            floorWorldList.appendChild(li);
+                        });
+                        floorContainer.appendChild(floorWorldList);
+
+                        document.getElementById("repository-list-container").appendChild(floorContainer);
+
+                        setUpScrolling();
+                    }
+                })
+                .catch((err) => {
+                    const e = document.createElement("div");
+                    e.classList.add("world-deleted");
+                    e.textContent = err;
+                    document.getElementById("repository-list-container").appendChild(e);
+                });
+
+            function setUpScrolling() {
+                if (localStorage.getItem("scroll") != null) window.scrollTo(0, localStorage.getItem("scroll"));
+
+                document.addEventListener("scroll", (event) => {
+                    localStorage.setItem("scroll", window.scrollY);
+                });
+            }
+        </script>
+    </body>
+</html>
