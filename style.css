@@ -1,9 +1,38 @@
+:root {
+    --bg-tint: #c9c9c9;
+    --panel-bg-top: #005c8a;
+    --panel-bg-bottom: #004e74;
+    --panel-outline: #003563;
+
+    --text: #f2f2f2;
+
+    --link: #f2f2f2;
+    --link-hover: #8dd2ff;
+    --link-active: #b6fffc;
+
+    --deleted: #002550;
+    --deleted-hover: #0073a8;
+
+    --border-soft: rgba(255, 255, 255, 0.06);
+    --border-radius: 2.5rem;
+
+    --transition: 0.18s ease;
+}
+
 body {
     margin: 0;
-    font-family: "Roboto", sans-serif;
+    min-height: 100vh;
+
+    font-family: "Roboto Condensed", sans-serif;
     line-height: 1.5;
-    background: #f3f3f3;
-    color: #222;
+
+    background-color: var(--bg-tint);
+    background-image: url("./images/G_Tiled_T.png");
+    background-size: 1536px;
+    background-blend-mode: multiply;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 #repository-list-container {
@@ -13,46 +42,77 @@ body {
 }
 
 h2 {
-    font-size: 1.4rem;
-    margin: 0 0 0.5rem;
-    color: #111;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.3rem;
+    margin: 0 0 1rem;
+    padding-bottom: 0.35rem;
+
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 1.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+
+    color: var(--text);
+    border-bottom: 4px solid rgba(255, 255, 255, 0.25);
+
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 ul {
     list-style: none;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 
 li {
-    margin: 0.3rem 0;
+    padding: 0.045rem 0;
+    border-bottom: 1px dashed var(--border-soft);
 }
 
-a {
-    text-decoration: none;
+li:last-child {
+    border-bottom: none;
+}
+
+a,
+.world-deleted {
     font-weight: 600;
+    text-decoration: none;
+
+    transition: color var(--transition), opacity var(--transition);
 }
 
 a {
-    color: #0069d9;
-    transition: color 0.2s;
+    color: var(--link);
 }
 
 a:hover {
-    color: #004aba;
+    color: var(--link-hover);
+}
+
+a:active {
+    color: var(--link-active);
 }
 
 .world-deleted {
-    color: #c04e4e;
+    color: var(--deleted);
     cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.world-deleted:hover {
+    color: var(--deleted-hover);
+    opacity: 1;
 }
 
 .floor-container {
-    background: #fff;
-    border-radius: 0.5rem;
-    padding: 0.8rem 1rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07);
+    padding: 0.75rem 1rem;
+
+    background: linear-gradient(to bottom, var(--panel-bg-top), var(--panel-bg-bottom));
+
+    border-radius: var(--border-radius) 0px var(--border-radius) 0px;
+    border: 2px solid var(--panel-outline);
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+    corner-shape: bevel;
 }
