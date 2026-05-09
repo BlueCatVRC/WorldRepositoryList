@@ -6,12 +6,15 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
-
+        <link
+            href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+            rel="stylesheet"
+        />
         <link rel="styleSheet" href="./style.css" />
     </head>
 
     <body>
+        <div class="glyph"></div>
         <div id="repository-list-container"></div>
 
         <script>
@@ -60,7 +63,7 @@
                         const floorWorldList = document.createElement("ul");
                         worldsOnFloor.forEach((world) => {
                             const worldIsDeleted = world.tags.includes("WORLD_DELETED");
-                            const worldElement = document.createElement(worldIsDeleted ? "div" : "a");
+                            const worldElement = document.createElement("a");
                             worldElement.textContent = world.name;
 
                             if (worldIsDeleted) worldElement.classList.add("world-deleted");
