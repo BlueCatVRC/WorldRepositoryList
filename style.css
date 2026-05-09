@@ -1,6 +1,7 @@
 :root {
-    --bg-tint: #c9c9c9;
-    --panel-bg-top: #005c8a;
+    --bg-image-tint: #c9c9c9;
+
+    --panel-bg-top: #005582;
     --panel-bg-bottom: #004e74;
     --panel-outline: #003563;
 
@@ -23,16 +24,13 @@ body {
     margin: 0;
     min-height: 100vh;
 
-    font-family: "Roboto Condensed", sans-serif;
-    line-height: 1.5;
-
-    background-color: var(--bg-tint);
+    background-color: var(--bg-image-tint);
     background-image: url("./images/G_Tiled_T.png");
     background-size: 1536px;
     background-blend-mode: multiply;
 
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
+    font-family: "Roboto Condensed", sans-serif;
+    line-height: 1.5;
 }
 
 #repository-list-container {
@@ -42,33 +40,42 @@ body {
 }
 
 h2 {
-    margin: 0 0 1rem;
-    padding-bottom: 0.35rem;
+    margin: 0.25rem 0 0.75rem;
+    padding-bottom: 0;
+
+    color: var(--text);
 
     font-family: "Bebas Neue", sans-serif;
-    font-size: 1.9rem;
+    font-size: 2.25rem;
     font-weight: 500;
+    line-height: 1.25;
     letter-spacing: 1px;
     text-align: center;
 
-    color: var(--text);
-    border-bottom: 4px solid rgba(255, 255, 255, 0.25);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.75);
 
     text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
 }
 
 ul {
-    list-style: none;
     margin: 0;
     padding: 0;
+
+    list-style: none;
 }
 
 li {
-    padding: 0.045rem 0;
+    margin: 0.5rem 0;
+    padding: 0.25rem 0;
+
+    line-height: 1;
+
     border-bottom: 1px dashed var(--border-soft);
 }
 
 li:last-child {
+    margin: 0.25rem 0;
+
     border-bottom: none;
 }
 
@@ -94,8 +101,9 @@ a:active {
 
 .world-deleted {
     color: var(--deleted);
-    cursor: not-allowed;
     opacity: 0.75;
+
+    cursor: not-allowed;
 }
 
 .world-deleted:hover {
@@ -105,12 +113,12 @@ a:active {
 
 .floor-container {
     margin-bottom: 1.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.25rem 1rem;
 
     background: linear-gradient(to bottom, var(--panel-bg-top), var(--panel-bg-bottom));
 
-    border-radius: var(--border-radius) 0px var(--border-radius) 0px;
     border: 2px solid var(--panel-outline);
+    border-radius: var(--border-radius) 0px var(--border-radius) 0px;
 
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.05);
 
