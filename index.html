@@ -86,11 +86,11 @@
                         floorContainer.appendChild(floorWorldList);
 
                         document.getElementById("repository-list-container").appendChild(floorContainer);
-
-                        setUpScrolling();
                     }
                 })
                 .finally(() => {
+                    setUpScrolling();
+
                     setTimeout(() => {
                         document.getElementById("loading-area").classList.add("fade-out");
                         document.getElementById("loading-area-icon").classList.add("loading-icon-out");
