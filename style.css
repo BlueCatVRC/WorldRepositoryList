@@ -17,6 +17,8 @@
     --border-soft: rgba(255, 255, 255, 0.06);
     --border-radius: 2.5rem;
 
+    --brief-outline: rgba(255, 255, 255, 1);
+
     --transition: 0.18s ease;
 }
 
@@ -172,10 +174,6 @@ a:active {
     animation: fadeOut 2s ease forwards;
 }
 
-.loading-icon-out {
-    animation: loadingIconOut 6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-}
-
 @keyframes fadeOut {
     from {
         opacity: 1;
@@ -186,6 +184,10 @@ a:active {
     }
 }
 
+.loading-icon-out {
+    animation: loadingIconOut 6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
 @keyframes loadingIconOut {
     from {
         transform: rotate(0deg) scale(1);
@@ -193,5 +195,50 @@ a:active {
     to {
         transform: rotate(360deg) scale(0.75);
         filter: blur(10px);
+    }
+}
+
+.brief-outline-floor {
+    position: relative;
+    box-shadow: 0 0 0 3px rgba(255, 230, 128, 0.95);
+    animation: brief-outline-fade-floor 5000ms ease-out forwards;
+    border-radius: 6px;
+    outline: none;
+}
+
+@keyframes brief-outline-fade-floor {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 230, 128, 0);
+    }
+    20% {
+        box-shadow: 0 0 0 0 rgba(255, 230, 128, 0);
+    }
+    60% {
+        box-shadow: 0 0 10px 2px var(--brief-outline);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 230, 128, 0);
+    }
+}
+
+.brief-outline-world {
+    position: relative;
+    text-shadow: 0px 0px 10px var(--brief-outline), 0px 0px 20px var(--brief-outline), 0px 0px 40px var(--brief-outline);
+    animation: brief-outline-fade-world 5000ms ease-out forwards;
+}
+
+@keyframes brief-outline-fade-world {
+    0% {
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0), 0px 0px 20px rgba(255, 255, 255, 0);
+    }
+    20% {
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0), 0px 0px 20px rgba(255, 255, 255, 0);
+    }
+    60% {
+        text-shadow: 0px 0px 10px var(--brief-outline), 0px 0px 15px var(--brief-outline), 0px 0px 30px var(--brief-outline),
+            0px 0px 30px var(--brief-outline);
+    }
+    100% {
+        text-shadow: 0px 0px 10px rgba(255, 255, 255, 0), 0px 0px 20px rgba(255, 255, 255, 0);
     }
 }
